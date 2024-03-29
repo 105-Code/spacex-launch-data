@@ -1,0 +1,152 @@
+[
+    {
+        "id":"itf-2",
+        "path": "videos/IFT-2.webm",
+        "recolection_rate":15,
+        "booster_start": 29,
+        "booster_end": 228,
+        "starship_start": 203,
+        "starship_end": 511,
+        "starship_engine_pos": {
+            "x": 1742,
+            "y": 912,
+            "width": 160,
+            "heigth": 150
+        },
+        "starship_lox_pos": {
+            "x": 1456,
+            "y": 1004,
+            "width": 245,
+            "heigth": 15
+        },
+        "starship_ch4_pos": {
+            "x": 1456,
+            "y": 1034,
+            "width": 245,
+            "heigth": 16
+        },
+        "starship_altitude_pos": {
+            "x": 1573,
+            "y": 945,
+            "width": 66,
+            "heigth": 38
+        },
+        "starship_speed_pos": {
+            "x": 1544,
+            "y": 912,
+            "width": 95,
+            "heigth": 33
+        },
+        "timer_pos": {
+            "x": 905,
+            "y": 951,
+            "width": 157,
+            "heigth": 47
+        },
+        "booster_engine_pos": {
+            "x": 28,
+            "y": 913,
+            "width": 153,
+            "heigth": 151
+        },
+        "booster_altitude_pos": {
+            "x": 390,
+            "y": 943,
+            "width": 60,
+            "heigth": 46
+        },
+        "booster_speed_pos": {
+            "x": 353,
+            "y": 911,
+            "width": 94,
+            "heigth": 36
+        },
+        "booster_lox_pos": {
+            "x": 268,
+            "y": 1004,
+            "width": 246,
+            "heigth": 15
+        },
+        "booster_ch4_pos": {
+            "x": 268,
+            "y": 1040,
+            "width": 246,
+            "heigth": 15
+        }
+    },
+    {
+        "id":"itf-3",
+        "path": "videos/IFT-3.webm",
+        "recolection_rate":15,
+        "booster_start": 52,
+        "booster_end": 463,
+        "starship_start": 220,
+        "starship_end": 568,
+        "starship_engine_pos": {
+            "x": 1742,
+            "y": 912,
+            "width": 160,
+            "heigth": 150
+        },
+        "starship_lox_pos": {
+            "x": 1456,
+            "y": 1004,
+            "width": 245,
+            "heigth": 15
+        },
+        "starship_ch4_pos": {
+            "x": 1456,
+            "y": 1034,
+            "width": 245,
+            "heigth": 16
+        },
+        "starship_altitude_pos": {
+            "x": 1573,
+            "y": 945,
+            "width": 66,
+            "heigth": 38
+        },
+        "starship_speed_pos": {
+            "x": 1544,
+            "y": 912,
+            "width": 95,
+            "heigth": 33
+        },
+        "timer_pos": {
+            "x": 905,
+            "y": 951,
+            "width": 157,
+            "heigth": 47
+        },
+        "booster_engine_pos": {
+            "x": 28,
+            "y": 913,
+            "width": 153,
+            "heigth": 151
+        },
+        "booster_altitude_pos": {
+            "x": 390,
+            "y": 943,
+            "width": 60,
+            "heigth": 46
+        },
+        "booster_speed_pos": {
+            "x": 353,
+            "y": 911,
+            "width": 94,
+            "heigth": 36
+        },
+        "booster_lox_pos": {
+            "x": 268,
+            "y": 1004,
+            "width": 246,
+            "heigth": 15
+        },
+        "booster_ch4_pos": {
+            "x": 268,
+            "y": 1040,
+            "width": 246,
+            "heigth": 15
+        }
+    }
+]

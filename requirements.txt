@@ -1,0 +1,5 @@
+opencv-python==4.9.0.80
+progressbar2==4.4.2
+easyocr==1.7.1
+
+
