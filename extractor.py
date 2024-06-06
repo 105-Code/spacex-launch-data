@@ -6,9 +6,14 @@ import easyocr
 
 def croppedFrame(frame, x, y, width, height):
 	img = frame[y:y+height, x:x+width]
+	if saveFrames:
+		cv2.imwrite(f'debug/frame_img_{x}_{y}_{width}_{height}.jpg', img)
 	grayImage = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	if saveFrames:
+		cv2.imwrite(f'debug/frame_gray_{x}_{y}_{width}_{height}.jpg', grayImage)
 	_, binaryImage = cv2.threshold(grayImage, 200, 255, cv2.THRESH_BINARY_INV)
-	#cv2.imwrite(f'frame_{y}.jpg', binaryImage)
+	if saveFrames:
+		cv2.imwrite(f'debug/frame_{x}_{y}_{width}_{height}.jpg', binaryImage)
 	return binaryImage
 
 def extractDots(frame):
@@ -44,12 +49,20 @@ def normalizeTimestamp(text:str):
 		counter +=1
 	return final
 
+def writeRectangeZone(frame,points):
+	x1=points['x']
+	y1=points['y']
+	x2=x1+points['width']
+	y2=y1+points['heigth']
+	print((x1,y2),(x2,y2))
+	return cv2.rectangle(frame, (x1,y1),(x2,y2), (255, 0, 0) , 2) 
+
 def saveCsv(path, header, rows):
 	with open(path, 'w') as f:
 		write = csv.writer(f)
 		write.writerow(header)
 		write.writerows(rows)
-
+saveFrames = False
 metadata_file = open('videos/metadata.json')
 metadata = json.load(metadata_file)
 
@@ -57,6 +70,8 @@ reader = easyocr.Reader(['en'])
 dataHeaders = ['time', 'seconds', 'altitude', 'speed']
 
 for data in metadata:
+	if data['skip']:
+		continue
 	print('Starting analysis for', data['id'])
 
 	video = cv2.VideoCapture(data['path'])
@@ -66,7 +81,7 @@ for data in metadata:
 	starship_end_frame = int(data['starship_end'] * fps)
 	starship_start_frame = int(data['starship_start'] * fps)
 	booster_end_frame = int(data['booster_end'] * fps)
-
+	saveFrames = bool(data['save_frames'])
 	booster = []
 	starship = []
 
@@ -80,7 +95,7 @@ for data in metadata:
 		') ',
 	]
 	bar = progressbar.ProgressBar(widgets=widgets, min_value=currect_frame, max_value=starship_end_frame).start()
-
+	recolectionRate = data['recolection_rate']
 	while 1:
 		video.set(cv2.CAP_PROP_POS_FRAMES, currect_frame)
 
@@ -105,15 +120,24 @@ for data in metadata:
 			starship_speed = extractText(data['starship_speed_pos'], frame)
 			starship.append([timer, seconds, starship_altitude, starship_speed])
 
-		currect_frame += data['recolection_rate']
+		if data['recolection_increse'] is not None:
+			recolectionRate = data['recolection_rate'] + seconds*data['recolection_increse']
+		currect_frame += recolectionRate
 		
+		if saveFrames:
+			frame = writeRectangeZone(frame,data['starship_altitude_pos'])
+			frame = writeRectangeZone(frame,data['starship_speed_pos'])
+			frame = writeRectangeZone(frame,data['timer_pos'])
+			cv2.imwrite(f'debug/frame.jpg', frame)
+
 		# TODO: terminar el analisis con la sharship no es correcto del todo.
 		if currect_frame > starship_end_frame:
 			bar.finish()
 			print('Analysis completed!')
 			break
 		bar.update(currect_frame)
-
+		#break
+	print("Final recolection rate",recolectionRate )
 	saveCsv('outputs/booster-{}.csv'.format(data['id']), dataHeaders, booster)
 	saveCsv('outputs/starship-{}.csv'.format(data['id']), dataHeaders, starship)
 
